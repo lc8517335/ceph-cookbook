@@ -5,7 +5,6 @@
 cluster = 'ceph'
 
 if node['ceph']['openstack_pools'].nil?
-  puts "************************I shoud not appear here"
   node.normal['ceph']['openstack_pools'] = [{'pool_name'=>'images'},{'pool_name'=>'volumes'}]
 end
 
