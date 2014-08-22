@@ -78,19 +78,21 @@ if !::File.exist?("#{node['ceph']['config']['keystone']['nss db path']}/done")
     action :create
   end
 
-  service 'ceph-radosgw' do
-    case node['ceph']['radosgw']['init_style']
-      when 'upstart'
-        service_name 'radosgw-all-starter'
-        provider Chef::Provider::Service::Upstart
+end
+
+service 'ceph-radosgw' do
+  case node['ceph']['radosgw']['init_style']
+    when 'upstart'
+      service_name 'radosgw-all-starter'
+      provider Chef::Provider::Service::Upstart
+    else
+      if node['platform'] == 'debian'
+        service_name 'radosgw'
       else
-        if node['platform'] == 'debian'
-          service_name 'radosgw'
-        else
-          service_name 'ceph-radosgw'
-        end
-    end
-    supports :restart => true
-    action [:enable, :start]
+        service_name 'ceph-radosgw'
+      end
   end
+  supports :restart => true
+  action [:enable, :start]
+  subscribes :restart, resources('template[/etc/ceph/ceph.conf]')
 end
