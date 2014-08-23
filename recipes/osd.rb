@@ -74,7 +74,7 @@ if node['ceph']['osd_devices'].nil?
       # whether the storage device is in use
       device_ssd_flag = Mixlib::ShellOut.new("cat /sys/block/#{device_name}/queue/rotational").run_command.stdout.strip
       device_partion_num = Mixlib::ShellOut.new("cat /proc/partitions | grep #{device_name} -c").run_command.stdout.strip
-      if device_partion_num == "1" && device_ssd_flag == "1"
+      if device_partion_num == "1" and device_ssd_flag == "1"
         puts "********************device_name:#{device_name}"
         device_hash['device'] = "/dev/#{device_name}"
         unless ssd_disk.empty?
