@@ -163,6 +163,7 @@ def ssd_device
       next
     end
   end
+  puts "***********************ssd_device:#{ssd_device}"
   ssd_device
 end
 
@@ -282,7 +283,10 @@ def mkpart(device)
     osd_journal_size = 5120
   end
   device_end_size = device_start_size + osd_journal_size
-  if not device_start_size.eql?(device_total_size)
+  puts "*******************device_start_size :#{device_start_size}"
+  puts "*********************device_end_size :#{device_end_size}"
+  puts "*******************device_total_size :#{device_total_size}"
+  if device_start_size < device_total_size
     p_num_old = partition_num(device)
     if device_total_size > device_end_size
       output = %x{parted #{device} --script -- mkpart osd_journal #{device_start_size.to_s} #{device_end_size.to_s}}

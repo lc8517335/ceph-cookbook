@@ -14,7 +14,7 @@ directory '/etc/ceph' do
   action :create
 end
 
-#:mon_init_member_name => mon_init_member_name,
+
 puts "************************mon_addresses:#{mon_addresses}"
 puts "************************mon_init_member:#{mon_init_member}"
 puts "************************mon_init_member_name:#{mon_init_member_name}"

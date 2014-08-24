@@ -61,36 +61,48 @@ execute 'format bootstrap-osd as keyring' do
   only_if { osd_secret }
 end
 
-if node['ceph']['osd_devices'].nil?
-  osd_device = []
-  ssd_disk = ssd_device
-  puts "******************ssd_disk:#{ssd_disk}"
-  ssd_index = 0
-  # search normal osd device
-  node['block_device'].each do |device|
-    device_hash = Hash.new
-    device_name = device[0]
-    if device_name.include?"sd"
-      # whether the storage device is in use
-      device_ssd_flag = Mixlib::ShellOut.new("cat /sys/block/#{device_name}/queue/rotational").run_command.stdout.strip
-      device_partion_num = Mixlib::ShellOut.new("cat /proc/partitions | grep #{device_name} -c").run_command.stdout.strip
-      if device_partion_num == "1" and device_ssd_flag == "1"
-        puts "********************device_name:#{device_name}"
-        device_hash['device'] = "/dev/#{device_name}"
-        unless ssd_disk.empty?
-          ssd_index = (ssd_index >= ssd_disk.length ? 0 : ssd_index)
-          ssd_partion = create_disk_partion(ssd_disk[ssd_index])
-          ssd_index = ssd_index + 1
+ruby_block 'get the osd_device' do
+  block do
+    if node['ceph']['osd_devices'].nil?
+      osd_device = []
+      ssd_disk = ssd_device
+      ssd_index = 0
+      # search normal osd device
+      node['block_device'].each do |device|
+        device_hash = Hash.new
+        puts "**********************device:#{device}"
+        device_name = device[0]
+        puts "**********************device_name:#{device_name}"
+        if device_name.include?"sd"
+          # whether the storage device is in use
+          device_ssd_flag = Mixlib::ShellOut.new("cat /sys/block/#{device_name}/queue/rotational").run_command.stdout.strip
+          device_partion_num = Mixlib::ShellOut.new("cat /proc/partitions | grep #{device_name} -c").run_command.stdout.strip
+          if device_partion_num == "1" and device_ssd_flag == "1"
+            device_hash['device'] = "/dev/#{device_name}"
+            unless ssd_disk.empty?
+              ssd_index = (ssd_index >= ssd_disk.length ? 0 : ssd_index)
+              ssd_partion = nil
+              while ssd_partion.nil?
+                if ssd_index >= ssd_disk.length
+                  break
+                end
+                ssd_partion = create_disk_partion(ssd_disk[ssd_index])
+                ssd_index = ssd_index + 1
+              end
+              ssd_index = ssd_index + 1
+            end
+            device_hash['journal'] = ssd_partion unless ssd_partion.nil?
+          end
+          puts "**********************device_hash:#{device_hash}"
+          osd_device << device_hash unless device_hash.empty?
+        else
+          next
         end
-        device_hash['journal'] = ssd_partion unless ssd_partion.nil?
+        #puts "*********************osd_device:#{osd_device}"
+        node.normal['ceph']['osd_devices'] = osd_device
+        node.save
       end
-      osd_device << device_hash unless device_hash.empty?
-    else
-      next
     end
-    puts "*********************osd_device:#{osd_device}"
-    node.normal['ceph']['osd_devices'] = osd_device
-    node.save
   end
 end
 

@@ -64,6 +64,7 @@ def auth_set_key(keyname, caps)
   secret = mon_secret
   # try to add the key
   cmd = "ceph auth get-or-create #{keyname} #{caps} --name mon. --key='#{secret}'"
+  #cmd = "ceph auth get-or-create #{keyname} #{caps} --key='#{secret}'"
   get_or_create = Mixlib::ShellOut.new(cmd)
   get_or_create.run_command
   if get_or_create.stderr.scan(/EINVAL.*but cap.*does not match/)
