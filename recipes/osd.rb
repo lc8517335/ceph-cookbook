@@ -70,9 +70,7 @@ ruby_block 'get the osd_device' do
       # search normal osd device
       node['block_device'].each do |device|
         device_hash = Hash.new
-        puts "**********************device:#{device}"
         device_name = device[0]
-        puts "**********************device_name:#{device_name}"
         if device_name.include?"sd"
           # whether the storage device is in use
           device_ssd_flag = Mixlib::ShellOut.new("cat /sys/block/#{device_name}/queue/rotational").run_command.stdout.strip
@@ -93,12 +91,10 @@ ruby_block 'get the osd_device' do
             end
             device_hash['journal'] = ssd_partion unless ssd_partion.nil?
           end
-          puts "**********************device_hash:#{device_hash}"
           osd_device << device_hash unless device_hash.empty?
         else
           next
         end
-        #puts "*********************osd_device:#{osd_device}"
         node.normal['ceph']['osd_devices'] = osd_device
         node.save
       end

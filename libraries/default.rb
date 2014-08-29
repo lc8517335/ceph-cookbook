@@ -127,7 +127,6 @@ def mon_master
     search_string2 = "run_list:role\\[ceph-mon\\] AND chef_environment:#{node.chef_environment}"
     all_mons = search(:node, search_string2)
     mons_sort = all_mons.sort_by { |a| a['hostname']}
-    puts "******************mons_sort: #{mons_sort}"
     if mons_sort[0]['hostname'] == node['hostname']
       node.tags << 'mon_master' unless node.tags.include?("mon_master")
       node.save
@@ -163,7 +162,6 @@ def ssd_device
       next
     end
   end
-  puts "***********************ssd_device:#{ssd_device}"
   ssd_device
 end
 
@@ -250,7 +248,6 @@ def disk_total_size(device)
   cmd = "parted #{device} --script -- p | grep #{device} | cut -f 2 -d ':'"
   rc = shell_out(cmd)
   device_total_size = rc.stdout.split[0]
-  puts "**************device_total_size:#{device_total_size}"
   if device_total_size.include?('GB')
     device_total_size = eval(device_total_size.gsub(/[A-Z]/,''))*1000
   elsif device_total_size.include?('MB')
@@ -283,9 +280,6 @@ def mkpart(device)
     osd_journal_size = 5120
   end
   device_end_size = device_start_size + osd_journal_size
-  puts "*******************device_start_size :#{device_start_size}"
-  puts "*********************device_end_size :#{device_end_size}"
-  puts "*******************device_total_size :#{device_total_size}"
   if device_start_size < device_total_size
     p_num_old = partition_num(device)
     if device_total_size > device_end_size
@@ -300,6 +294,7 @@ def mkpart(device)
       Chef::Log.error("Making partition was failed.")
     else
       device_return = device+p_num
+      %x{mkfs.xfs #{device_return}}
       device_return
     end
   end
@@ -317,7 +312,6 @@ end
 
 def node_election(role, tag, chef_environment = nil)
   chef_environment = chef_environment || node.chef_environment
-  puts "******************chef_environment:#{chef_environment}"
   master = search(:node, "run_list:role\\[#{role}\\] AND \
                   chef_environment:#{chef_environment} AND \
                   tags:#{tag}") || []
@@ -325,7 +319,6 @@ def node_election(role, tag, chef_environment = nil)
     nodes = search(:node, "run_list:role\\[#{role}\\] AND \
                    chef_environment:#{chef_environment}") || []
     nodes = nodes.sort_by { |node| node.name } unless nodes.empty?
-    puts "*****************nodes:#{nodes}"
     if node['hostname'].eql?(nodes[0]['hostname'])
       node.tags << tag unless node.tags.include?(tag)
       node.save

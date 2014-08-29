@@ -5,19 +5,16 @@
 cluster = 'ceph'
 
 if node['ceph']['openstack_pools'].nil?
-  node.normal['ceph']['openstack_pools'] = [{'pool_name'=>'images'},{'pool_name'=>'volumes'}]
+  node.normal['ceph']['openstack_pools'] = [{'pool_name'=>'images'},{'pool_name'=>'volumes'},{'pool_name'=>'vms'}]
 end
 
 #create pools for openstack volumes and images
 if node['ceph']['openstack_pools']
   pools = node['ceph']['openstack_pools']
-  puts "*******************pools:#{pools}"
 
   pools = Hash[(0...pools.size).zip pools] unless pools.kind_of? Hash
 
   pools.each do |index, ceph_pools|
-    puts "*******************index:#{index}"
-    puts "*******************ceph_pools:#{ceph_pools}"
     unless ceph_pools['status'].nil?
       Chef::Log.info("osd pools: ceph_pools #{ceph_pools['pool_name']} has already been create.")
       next
@@ -42,7 +39,7 @@ end
 if node['ceph']['cinder-secret'].nil?
   keyring1 = "client.cinder"
   execute 'generate cinder-secret as keyring' do
-    command "ceph auth get-or-create #{keyring1} mon 'allow r' osd 'allow class-read object_prefix rbd_children, allow rwx pool=volumes, allow rx pool=images'"
+    command "ceph auth get-or-create #{keyring1} mon 'allow r' osd 'allow class-read object_prefix rbd_children, allow rwx pool=volumes, allow rwx pool=vms, allow rx pool=images'"
     notifies :create, 'ruby_block[save cinder-secret]', :immediately
   end
 
@@ -51,7 +48,6 @@ if node['ceph']['cinder-secret'].nil?
       fetch1 = Mixlib::ShellOut.new("ceph auth print_key '#{keyring1}'")
       fetch1.run_command
       key1 = fetch1.stdout
-      puts "***************************key1:#{key1}"
       node.set['ceph']['cinder-secret'] = key1
       node.save
     end
@@ -72,7 +68,6 @@ if node['ceph']['glance-secret'].nil?
       fetch2 = Mixlib::ShellOut.new("ceph auth print_key '#{keyring2}'")
       fetch2.run_command
       key2 = fetch2.stdout
-      puts "***************************key2:#{key2}"
       node.set['ceph']['glance-secret'] = key2
       node.save
     end

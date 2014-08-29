@@ -44,16 +44,12 @@ end
 # which one should be used for each single volume mount request
 Chef::Log.info("rbd_secret_name: #{node['openstack']['compute']['libvirt']['rbd']['rbd_secret_name']}")
 secret_uuid = node['openstack']['block-storage']['rbd_secret_uuid']
-#secret_uuid = 'f7c4b7af-f0b2-459c-bae8-5d3b8668ea07'
-puts "******************secret_uuid:#{secret_uuid}"
 
-if mon_nodes.nil?
-  ceph_key = ""
-  LOG.info("ceph storage cluster is not working,rbd key is empty#{ceph_key}")
-  puts "**********************mon_nodes_is_not_ok,rbd key is empty:#{ceph_key}"
+if mon_nodes.empty?
+  rbd_key = ""
+  LOG.info("ceph storage cluster is not working,rbd key is empty#{rbd_key}")
 else
-  ceph_key = mon_nodes[0]['ceph']['cinder-secret']
-  puts "**********************ceph_key:#{ceph_key}"
+  rbd_key = mon_nodes[0]['ceph']['cinder-secret']
 end
 
 require 'securerandom'
@@ -76,8 +72,8 @@ execute "virsh secret-define --file /tmp/#{filename}.xml" do
 end
 
 # this will update the key if necessary
-execute "virsh secret-set-value --secret #{secret_uuid} --base64 #{ceph_key}" do
-  #not_if "virsh secret-get-value #{secret_uuid} | grep '#{ceph_key}'"
+execute 'set libvirt secret' do
+  command "virsh secret-set-value --secret #{secret_uuid} --base64 #{rbd_key}"
   notifies :restart, 'service[nova-compute-ceph]', :immediately
 end
 

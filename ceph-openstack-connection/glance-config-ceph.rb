@@ -14,8 +14,8 @@ end
 
 
 rbd_user = node['openstack']['image']['api']['rbd']['rbd_store_user']
-puts "**********************rbd_user:#{rbd_user}"
-if mon_nodes.nil?
+
+if mon_nodes.empty?
   rbd_key = ""
   LOG.info("ceph storage cluster is not working,rbd key is empty#{rbd_key}")
 else
@@ -35,12 +35,6 @@ template "/etc/ceph/ceph.client.#{rbd_user}.keyring" do
 end
 node.set['openstack']['image']['api']['default_store'] = 'rbd'
 node.save
-
-# execute "modify the glance-api.conf" do
-#   command "sed -i 's/default_store = file/default_store = rbd/g' /etc/glance/glance-api.conf"
-#   ignore_failure true
-#   notifies :restart, 'service[glance-api-ceph]', :immediately
-# end
 
 service 'glance-api-ceph' do
   service_name platform_options['image_api_service']

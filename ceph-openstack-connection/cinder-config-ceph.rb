@@ -40,19 +40,16 @@ platform_options['cinder_volume_packages'].each do |pkg|
   end
 end
 
+
 # this is used in the cinder.conf template
 node.override['openstack']['block-storage']['volume']['driver'] = 'cinder.volume.drivers.rbd.RBDDriver'
-#node.override['openstack']['block-storage']['volume']['driver'] = 'cinder.volume.drivers.lvm.LVMISCSIDriver'
-
 rbd_user = node['openstack']['block-storage']['rbd_user']
-puts "**********************rbd_user:#{rbd_user}"
-if mon_nodes.nil?
+
+if mon_nodes.empty?
   rbd_key = ""
   LOG.info("ceph storage cluster is not working,rbd key is empty#{rbd_key}")
-  puts "**********************mon_nodes_is_not_ok,rbd key is empty:#{rbd_key}"
 else
   rbd_key = mon_nodes[0]['ceph']['cinder-secret']
-  puts "**********************rbd_key:#{rbd_key}"
 end
 
 template "/etc/ceph/ceph.client.#{rbd_user}.keyring" do
