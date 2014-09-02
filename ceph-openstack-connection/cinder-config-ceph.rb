@@ -40,7 +40,6 @@ platform_options['cinder_volume_packages'].each do |pkg|
   end
 end
 
-
 # this is used in the cinder.conf template
 node.override['openstack']['block-storage']['volume']['driver'] = 'cinder.volume.drivers.rbd.RBDDriver'
 rbd_user = node['openstack']['block-storage']['rbd_user']
@@ -59,8 +58,8 @@ template "/etc/ceph/ceph.client.#{rbd_user}.keyring" do
   group node['openstack']['block-storage']['group']
   mode '0600'
   variables(
-    name: rbd_user,
-    key: rbd_key
+      name: rbd_user,
+      key: rbd_key
   )
 end
 

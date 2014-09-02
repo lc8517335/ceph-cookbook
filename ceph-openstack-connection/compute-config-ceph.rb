@@ -61,8 +61,8 @@ template "/tmp/#{filename}.xml" do
   group 'root'
   mode '700'
   variables(
-    uuid: secret_uuid,
-    client_name: node['openstack']['compute']['libvirt']['rbd']['rbd_user']
+      uuid: secret_uuid,
+      client_name: node['openstack']['compute']['libvirt']['rbd']['rbd_user']
   )
   not_if "virsh secret-list | grep #{secret_uuid}"
 end

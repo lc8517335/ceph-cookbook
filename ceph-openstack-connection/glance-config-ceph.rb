@@ -12,7 +12,6 @@ class ::Chef::Recipe # rubocop:disable Documentation
   include ::Openstack
 end
 
-
 rbd_user = node['openstack']['image']['api']['rbd']['rbd_store_user']
 
 if mon_nodes.empty?
@@ -33,8 +32,12 @@ template "/etc/ceph/ceph.client.#{rbd_user}.keyring" do
       key: rbd_key
   )
 end
-node.set['openstack']['image']['api']['default_store'] = 'rbd'
-node.save
+ruby_block 'set glance backend' do
+  block do
+    node.set['openstack']['image']['api']['default_store'] = 'rbd'
+    node.save
+  end
+end
 
 service 'glance-api-ceph' do
   service_name platform_options['image_api_service']
