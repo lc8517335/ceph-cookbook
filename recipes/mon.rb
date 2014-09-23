@@ -123,6 +123,7 @@ service 'ceph_mon' do
     service_name 'ceph'
   end
   supports :restart => true, :status => true
+  subscribes :restart, resources('template[/etc/ceph/ceph.conf]')
   action [:enable, :start]
 end
 

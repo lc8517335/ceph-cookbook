@@ -174,18 +174,20 @@ else
         action :nothing
       end
     end
-    service 'ceph_osd' do
-      case service_type
-      when 'upstart'
-        service_name 'ceph-osd-all-starter'
-        provider Chef::Provider::Service::Upstart
-      else
-        service_name 'ceph'
-      end
-      action [:enable, :start]
-      supports :restart => true
-    end
   else
     Log.info('node["ceph"]["osd_devices"] empty')
   end
+end
+
+service 'ceph_osd' do
+  case service_type
+    when 'upstart'
+      service_name 'ceph-osd-all-starter'
+      provider Chef::Provider::Service::Upstart
+    else
+      service_name 'ceph'
+  end
+  action [:enable, :start]
+  supports :restart => true
+  subscribes :restart, resources('template[/etc/ceph/ceph.conf]')
 end
