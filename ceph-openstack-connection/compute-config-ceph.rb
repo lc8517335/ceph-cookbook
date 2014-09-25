@@ -42,14 +42,28 @@ end
 
 # TODO(srenatus) there might be multiple secrets, cinder will tell nova-compute
 # which one should be used for each single volume mount request
-Chef::Log.info("rbd_secret_name: #{node['openstack']['compute']['libvirt']['rbd']['rbd_secret_name']}")
+
 secret_uuid = node['openstack']['block-storage']['rbd_secret_uuid']
+rbd_user = node['openstack']['compute']['libvirt']['rbd']['rbd_user']
 
 if mon_nodes.empty?
   rbd_key = ""
-  LOG.info("ceph storage cluster is not working,rbd key is empty#{rbd_key}")
+elsif !mon_nodes[0]['ceph'].has_key?('cinder-secret')
+  rbd_key = ""
 else
   rbd_key = mon_nodes[0]['ceph']['cinder-secret']
+end
+
+template "/etc/ceph/ceph.client.#{rbd_user}.keyring" do
+  source 'ceph.client.keyring.erb'
+  cookbook 'openstack-common'
+  owner node['openstack']['block-storage']['user']
+  group node['openstack']['block-storage']['group']
+  mode '0644'
+  variables(
+      name: rbd_user,
+      key: rbd_key
+  )
 end
 
 require 'securerandom'

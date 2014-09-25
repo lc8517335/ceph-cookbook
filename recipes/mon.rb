@@ -169,18 +169,9 @@ if node['ceph']['config']['global']['osd pool default pg num']
 
   default_pools.each do |default_pool|
     run_out = Mixlib::ShellOut.new("ceph osd pool get #{default_pool} pg_num| awk -F \": \" '{print $2}'").run_command.stdout.strip
-    if run_out != node['ceph']['config']['global']['osd pool default pgp num']
+    if run_out.to_i < node['ceph']['config']['global']['osd pool default pgp num'].to_i
       execute 'set default pg num' do
-        command "ceph osd pool set #{default_pool} pg_num #{node['ceph']['config']['global']['osd pool default pg num']}"
-        ignore_failure true
-        not_if {pg_creating?}
-      end
-    end
-
-    run_out = Mixlib::ShellOut.new("ceph osd pool get #{default_pool} pgp_num| awk -F \": \" '{print $2}'").run_command.stdout.strip
-    if run_out != node['ceph']['config']['global']['osd pool default pgp num']
-      execute 'set default pgp num' do
-        command "ceph osd pool set #{default_pool} pgp_num #{node['ceph']['config']['global']['osd pool default pgp num']}"
+        command "ceph osd pool delete #{default_pool} #{default_pool} --yes-i-really-really-mean-it;ceph osd pool create #{default_pool} #{node['ceph']['config']['global']['osd pool default pg num']}"
         ignore_failure true
         not_if {pg_creating?}
       end

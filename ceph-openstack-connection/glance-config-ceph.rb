@@ -16,7 +16,8 @@ rbd_user = node['openstack']['image']['api']['rbd']['rbd_store_user']
 
 if mon_nodes.empty?
   rbd_key = ""
-  LOG.info("ceph storage cluster is not working,rbd key is empty#{rbd_key}")
+elsif !mon_nodes[0]['ceph'].has_key?('glance-secret')
+  rbd_key = ""
 else
   rbd_key = mon_nodes[0]['ceph']['glance-secret']
 end
@@ -32,6 +33,7 @@ template "/etc/ceph/ceph.client.#{rbd_user}.keyring" do
       key: rbd_key
   )
 end
+
 ruby_block 'set glance backend' do
   block do
     node.set['openstack']['image']['api']['default_store'] = 'rbd'

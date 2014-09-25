@@ -46,7 +46,8 @@ rbd_user = node['openstack']['block-storage']['rbd_user']
 
 if mon_nodes.empty?
   rbd_key = ""
-  LOG.info("ceph storage cluster is not working,rbd key is empty#{rbd_key}")
+elsif !mon_nodes[0]['ceph'].has_key?('cinder-secret')
+  rbd_key = ""
 else
   rbd_key = mon_nodes[0]['ceph']['cinder-secret']
 end
@@ -56,7 +57,7 @@ template "/etc/ceph/ceph.client.#{rbd_user}.keyring" do
   cookbook 'openstack-common'
   owner node['openstack']['block-storage']['user']
   group node['openstack']['block-storage']['group']
-  mode '0600'
+  mode '0644'
   variables(
       name: rbd_user,
       key: rbd_key
