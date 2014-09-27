@@ -43,7 +43,13 @@ end
 cluster = 'ceph'
 
 if mon_master['hostname'] != node['hostname']
-  admin_keyring = mon_nodes[0]['ceph']['admin-secret']
+  admin_keyring = mon_master['ceph']['admin-secret']
+  if admin_keyring.nil?
+    Chef::Application.fatal!("wait for mon master node update.")
+  end
+  if mon_secret.nil?
+    Chef::Application.fatal!("wait for mon master node update.")
+  end
   admin_user = "admin"
   template "/etc/ceph/ceph.client.#{admin_user}.keyring" do
     source 'ceph.client.keyring.erb'
@@ -57,12 +63,6 @@ end
 
 unless File.exist?("/var/lib/ceph/mon/ceph-#{node['hostname']}/done")
   keyring = "#{Chef::Config[:file_cache_path]}/#{cluster}-#{node['hostname']}.mon.keyring"
-
-  if mon_secret
-    if mon_nodes.empty?
-      Chef::Application.fatal!("wait for mon nodes update.")
-    end
-  end
 
   execute 'format mon-secret as keyring' do
     command lazy { "ceph-authtool '#{keyring}' --create-keyring --name=mon. --add-key='#{mon_secret}' --cap mon 'allow *'" }

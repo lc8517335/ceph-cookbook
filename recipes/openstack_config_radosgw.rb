@@ -16,83 +16,85 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-node.default['ceph']['is_keystone_integration'] = true
+node.default['ceph']['is_keystone_integration'] = false
 
-keystone_master = node_election('os-identity', 'keystone_keygen', node['ceph']['keystone environment'])
-puts "****************keystone_master:#{keystone_master}"
-if keystone_master['openstack']['endpoints']['identity-bind']['host'].nil?
-  Chef::Log.debug \
-            "Chef-client exit for keystone endpoint bind host on #{keystone_master.name})"
-  exit 1
-end
-node.default['ceph']['config']['keystone']['rgw keystone url'] = "#{keystone_master['openstack']['endpoints']['identity-bind']['host']}:35357"
-
-template '/etc/ceph/ceph.conf' do
-  source 'ceph.conf.erb'
-  variables lazy {
-    {
-      :mon_addresses => mon_addresses,
-      :is_rgw => node['ceph']['is_radosgw'],
-      :is_keystone_integration => node['ceph']['is_keystone_integration']
-    }
-  }
-  mode '0644'
-end
-
-%w{certfile ca_certs}.each do |name|
-  if !keystone_master['openstack']['identity']['signing'].attribute?("#{name}_data")
+if node['ceph']['is_keystone_integration']
+  keystone_master = node_election('os-identity', 'keystone_keygen', node['ceph']['keystone environment'])
+  puts "****************keystone_master:#{keystone_master}"
+  if keystone_master['openstack']['endpoints']['identity-bind']['host'].nil?
     Chef::Log.debug \
-            "Chef-client exit for PKI files from node #{keystone_master.name})"
+            "Chef-client exit for keystone endpoint bind host on #{keystone_master.name})"
     exit 1
   end
-  file node['ceph']['radosgw']['signing']["#{name}"] do
-    content keystone_master['openstack']['identity']['signing']["#{name}_data"]
-    owner   'root'
-    group   'root'
-    mode    00640
-  end
-end
+  node.default['ceph']['config']['keystone']['rgw keystone url'] = "#{keystone_master['openstack']['endpoints']['identity-bind']['host']}:35357"
 
-directory node['ceph']['config']['keystone']['nss db path'] do
-  owner 'apache'
-  group 'apache'
-  mode 00755
-  recursive true
-  action :create
-end
-
-if !::File.exist?("#{node['ceph']['config']['keystone']['nss db path']}/done")
-  execute 'config ca.pem' do
-    command "openssl x509 -in #{node['ceph']['radosgw']['signing']['ca_certs']} -pubkey | certutil -d /var/ceph/nss -A -n ca -t \"TCu,Cu,Tuw\""
+  template '/etc/ceph/ceph.conf' do
+    source 'ceph.conf.erb'
+    variables lazy {
+      {
+          :mon_addresses => mon_addresses,
+          :is_rgw => node['ceph']['is_radosgw'],
+          :is_keystone_integration => node['ceph']['is_keystone_integration']
+      }
+    }
+    mode '0644'
   end
 
-  execute 'config signing_cert.pem' do
-    command "openssl x509 -in #{node['ceph']['radosgw']['signing']['certfile']} -pubkey | certutil -A -d /var/ceph/nss -n signing_cert -t \"P,P,P\""
+  %w{certfile ca_certs}.each do |name|
+    if !keystone_master['openstack']['identity']['signing'].attribute?("#{name}_data")
+      Chef::Log.debug \
+            "Chef-client exit for PKI files from node #{keystone_master.name})"
+      exit 1
+    end
+    file node['ceph']['radosgw']['signing']["#{name}"] do
+      content keystone_master['openstack']['identity']['signing']["#{name}_data"]
+      owner   'root'
+      group   'root'
+      mode    00640
+    end
   end
 
-  execute 'change owner of nss' do
-    command "chown apache:apache -R #{node['ceph']['config']['keystone']['nss db path']}"
-  end
-
-  file "#{node['ceph']['config']['keystone']['nss db path']}/done" do
+  directory node['ceph']['config']['keystone']['nss db path'] do
+    owner 'apache'
+    group 'apache'
+    mode 00755
+    recursive true
     action :create
   end
 
-end
+  if !::File.exist?("#{node['ceph']['config']['keystone']['nss db path']}/done")
+    execute 'config ca.pem' do
+      command "openssl x509 -in #{node['ceph']['radosgw']['signing']['ca_certs']} -pubkey | certutil -d /var/ceph/nss -A -n ca -t \"TCu,Cu,Tuw\""
+    end
 
-service 'ceph-radosgw' do
-  case node['ceph']['radosgw']['init_style']
-    when 'upstart'
-      service_name 'radosgw-all-starter'
-      provider Chef::Provider::Service::Upstart
-    else
-      if node['platform'] == 'debian'
-        service_name 'radosgw'
-      else
-        service_name 'ceph-radosgw'
-      end
+    execute 'config signing_cert.pem' do
+      command "openssl x509 -in #{node['ceph']['radosgw']['signing']['certfile']} -pubkey | certutil -A -d /var/ceph/nss -n signing_cert -t \"P,P,P\""
+    end
+
+    execute 'change owner of nss' do
+      command "chown apache:apache -R #{node['ceph']['config']['keystone']['nss db path']}"
+    end
+
+    file "#{node['ceph']['config']['keystone']['nss db path']}/done" do
+      action :create
+    end
+
   end
-  supports :restart => true
-  action [:enable, :start]
-  subscribes :restart, resources('template[/etc/ceph/ceph.conf]')
+
+  service 'ceph-radosgw' do
+    case node['ceph']['radosgw']['init_style']
+      when 'upstart'
+        service_name 'radosgw-all-starter'
+        provider Chef::Provider::Service::Upstart
+      else
+        if node['platform'] == 'debian'
+          service_name 'radosgw'
+        else
+          service_name 'ceph-radosgw'
+        end
+    end
+    supports :restart => true
+    action [:enable, :start]
+    subscribes :restart, resources('template[/etc/ceph/ceph.conf]')
+  end
 end

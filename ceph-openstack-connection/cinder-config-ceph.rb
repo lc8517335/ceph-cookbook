@@ -40,35 +40,35 @@ platform_options['cinder_volume_packages'].each do |pkg|
   end
 end
 
-# this is used in the cinder.conf template
-node.override['openstack']['block-storage']['volume']['driver'] = 'cinder.volume.drivers.rbd.RBDDriver'
-rbd_user = node['openstack']['block-storage']['rbd_user']
+if node.override['openstack']['block-storage']['volume']['driver'] == 'cinder.volume.drivers.rbd.RBDDriver'
+  rbd_user = node['openstack']['block-storage']['rbd_user']
 
-if mon_nodes.empty?
-  rbd_key = ""
-elsif !mon_nodes[0]['ceph'].has_key?('cinder-secret')
-  rbd_key = ""
-else
-  rbd_key = mon_nodes[0]['ceph']['cinder-secret']
-end
+  if mon_nodes.empty?
+    rbd_key = ""
+  elsif !mon_nodes[0]['ceph'].has_key?('cinder-secret')
+    rbd_key = ""
+  else
+    rbd_key = mon_nodes[0]['ceph']['cinder-secret']
+  end
 
-template "/etc/ceph/ceph.client.#{rbd_user}.keyring" do
-  source 'ceph.client.keyring.erb'
-  cookbook 'openstack-common'
-  owner node['openstack']['block-storage']['user']
-  group node['openstack']['block-storage']['group']
-  mode '0644'
-  variables(
-      name: rbd_user,
-      key: rbd_key
-  )
-end
+  template "/etc/ceph/ceph.client.#{rbd_user}.keyring" do
+    source 'ceph.client.keyring.erb'
+    cookbook 'openstack-common'
+    owner node['openstack']['block-storage']['user']
+    group node['openstack']['block-storage']['group']
+    mode '0644'
+    variables(
+        name: rbd_user,
+        key: rbd_key
+    )
+  end
 
-include_recipe 'openstack-block-storage::cinder-common'
+  include_recipe 'openstack-block-storage::cinder-common'
 
-service 'cinder-volume-ceph' do
-  service_name platform_options['cinder_volume_service']
-  supports status: true, restart: true
-  action :restart
-  subscribes :restart, 'template[/etc/cinder/cinder.conf]'
+  service 'cinder-volume-ceph' do
+    service_name platform_options['cinder_volume_service']
+    supports status: true, restart: true
+    action :restart
+    subscribes :restart, 'template[/etc/cinder/cinder.conf]'
+  end
 end

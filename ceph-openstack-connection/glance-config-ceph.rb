@@ -11,40 +11,33 @@ cluster = 'ceph'
 class ::Chef::Recipe # rubocop:disable Documentation
   include ::Openstack
 end
+if node['openstack']['image']['api']['default_store'] == 'rbd'
+  rbd_user = node['openstack']['image']['api']['rbd']['rbd_store_user']
 
-rbd_user = node['openstack']['image']['api']['rbd']['rbd_store_user']
+  if mon_nodes.empty?
+    rbd_key = ""
+  elsif !mon_nodes[0]['ceph'].has_key?('glance-secret')
+    rbd_key = ""
+  else
+    rbd_key = mon_nodes[0]['ceph']['glance-secret']
+  end
 
-if mon_nodes.empty?
-  rbd_key = ""
-elsif !mon_nodes[0]['ceph'].has_key?('glance-secret')
-  rbd_key = ""
-else
-  rbd_key = mon_nodes[0]['ceph']['glance-secret']
-end
+  template "/etc/ceph/ceph.client.#{rbd_user}.keyring" do
+    source 'ceph.client.keyring.erb'
+    cookbook 'openstack-common'
+    owner node['openstack']['image']['user']
+    group node['openstack']['image']['group']
+    mode 00600
+    variables(
+        name: rbd_user,
+        key: rbd_key
+    )
+  end
 
-template "/etc/ceph/ceph.client.#{rbd_user}.keyring" do
-  source 'ceph.client.keyring.erb'
-  cookbook 'openstack-common'
-  owner node['openstack']['image']['user']
-  group node['openstack']['image']['group']
-  mode 00600
-  variables(
-      name: rbd_user,
-      key: rbd_key
-  )
-end
-
-ruby_block 'set glance backend' do
-  block do
-    node.set['openstack']['image']['api']['default_store'] = 'rbd'
-    node.save
+  service 'glance-api-ceph' do
+    service_name platform_options['image_api_service']
+    supports status: true, restart: true
+    action :enable
+    subscribes :restart, resources('template[/etc/ceph/ceph.conf]')
   end
 end
-
-service 'glance-api-ceph' do
-  service_name platform_options['image_api_service']
-  supports status: true, restart: true
-  action :enable
-  subscribes :restart, resources('template[/etc/ceph/ceph.conf]')
-end
-
