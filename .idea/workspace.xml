@@ -26,7 +26,7 @@
       <file leaf-file-name="mon.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/recipes/mon.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.8" vertical-offset="1298" max-vertical-offset="4070">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1298" max-vertical-offset="4070">
               <caret line="69" column="19" selection-start-line="69" selection-start-column="19" selection-end-line="69" selection-end-column="19" />
               <folding />
             </state>
@@ -36,7 +36,7 @@
       <file leaf-file-name="default.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/libraries/default.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="24.851852" vertical-offset="1584" max-vertical-offset="7480">
+            <state vertical-scroll-proportion="0.0" vertical-offset="242" max-vertical-offset="7480">
               <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
               <folding />
             </state>
@@ -46,18 +46,38 @@
       <file leaf-file-name="cinder-config-ceph.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ceph-openstack-connection/cinder-config-ceph.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.04" vertical-offset="426" max-vertical-offset="1738">
-              <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+            <state vertical-scroll-proportion="-10.72" vertical-offset="238" max-vertical-offset="1760">
+              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="openstack_config_radosgw.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="openstack_config_radosgw.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/recipes/openstack_config_radosgw.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.04988662" vertical-offset="264" max-vertical-offset="2332">
-              <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+            <state vertical-scroll-proportion="-14.08" vertical-offset="66" max-vertical-offset="2332">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="all_in_one.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/recipes/all_in_one.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="264">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="radosgw_apache2_repo.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/recipes/radosgw_apache2_repo.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="836">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -66,18 +86,18 @@
       <file leaf-file-name="glance-config-ceph.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ceph-openstack-connection/glance-config-ceph.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.28" vertical-offset="198" max-vertical-offset="1078">
-              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+            <state vertical-scroll-proportion="-12.32" vertical-offset="0" max-vertical-offset="1122">
+              <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="swift-config-ceph.rb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="swift-config-ceph.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ceph-openstack-connection/swift-config-ceph.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="5.88" vertical-offset="719" max-vertical-offset="2332">
-              <caret line="26" column="3" selection-start-line="26" selection-start-column="3" selection-end-line="26" selection-end-column="3" />
+            <state vertical-scroll-proportion="0.6334587" vertical-offset="191" max-vertical-offset="2332">
+              <caret line="24" column="17" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -93,31 +113,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nova.conf.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../chef/cookbooks/openstack-compute/templates/default/nova.conf.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="7.3411765" vertical-offset="12812" max-vertical-offset="13244">
-              <caret line="554" column="0" selection-start-line="554" selection-start-column="0" selection-end-line="554" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="compute-config-ceph.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ceph-openstack-connection/compute-config-ceph.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.32" vertical-offset="483" max-vertical-offset="2398">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="repo.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/attributes/repo.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.0740743" vertical-offset="440" max-vertical-offset="1276">
-              <caret line="30" column="31" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
+            <state vertical-scroll-proportion="-9.32" vertical-offset="185" max-vertical-offset="2420">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -174,9 +174,9 @@
         <option value="$PROJECT_DIR$/recipes/openstack_config_radosgw.rb" />
         <option value="$PROJECT_DIR$/libraries/default.rb" />
         <option value="$PROJECT_DIR$/recipes/mon.rb" />
+        <option value="$PROJECT_DIR$/ceph-openstack-connection/cinder-config-ceph.rb" />
         <option value="$PROJECT_DIR$/ceph-openstack-connection/compute-config-ceph.rb" />
         <option value="$PROJECT_DIR$/ceph-openstack-connection/glance-config-ceph.rb" />
-        <option value="$PROJECT_DIR$/ceph-openstack-connection/cinder-config-ceph.rb" />
       </list>
     </option>
   </component>
@@ -300,20 +300,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="recipes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ceph-cookbook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ceph-cookbook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="ceph-openstack-connection" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -422,16 +408,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12786885" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22919819" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23298033" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -440,9 +425,10 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12786885" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -462,23 +448,11 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../chef/cookbooks/openstack-identity/libraries/default.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.8" vertical-offset="395" max-vertical-offset="1056">
-          <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../chef/cookbooks/openstack-identity/resources/register.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.28" vertical-offset="1109" max-vertical-offset="1628">
-          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../chef/cookbooks/ceph/recipes/osd.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-14.08" vertical-offset="2090" max-vertical-offset="4356">
@@ -497,7 +471,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6420233" vertical-offset="330" max-vertical-offset="6556">
           <caret line="30" column="3" selection-start-line="30" selection-start-column="3" selection-end-line="30" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -505,7 +478,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="18.48" vertical-offset="462" max-vertical-offset="3014">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -513,7 +485,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.32" vertical-offset="1008" max-vertical-offset="1738">
           <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -521,7 +492,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-12.32" vertical-offset="462" max-vertical-offset="2266">
           <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -536,7 +506,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.6" vertical-offset="304" max-vertical-offset="836">
           <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -544,7 +513,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="54.56" vertical-offset="1650" max-vertical-offset="2310">
           <caret line="13" column="10" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -559,7 +527,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4268">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -609,7 +576,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1011" max-vertical-offset="7480">
           <caret line="56" column="7" selection-start-line="56" selection-start-column="4" selection-end-line="56" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -617,7 +583,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.55353075" vertical-offset="397" max-vertical-offset="836">
           <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -625,7 +590,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.2159624" vertical-offset="1994" max-vertical-offset="2420">
           <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -633,7 +597,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.6082006" vertical-offset="1299" max-vertical-offset="1738">
           <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -641,7 +604,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1243" max-vertical-offset="4070">
           <caret line="163" column="0" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -649,7 +611,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-11.32" vertical-offset="751" max-vertical-offset="2574">
           <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -657,7 +618,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-14.96" vertical-offset="1738" max-vertical-offset="9812">
           <caret line="96" column="0" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -665,7 +625,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.0" vertical-offset="1174" max-vertical-offset="6050">
           <caret line="73" column="3" selection-start-line="73" selection-start-column="3" selection-end-line="73" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -673,7 +632,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.52" vertical-offset="0" max-vertical-offset="924">
           <caret line="4" column="43" selection-start-line="4" selection-start-column="43" selection-end-line="4" selection-end-column="58" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -681,7 +639,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.851852" vertical-offset="0" max-vertical-offset="1276">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -689,7 +646,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.56" vertical-offset="66" max-vertical-offset="660">
           <caret line="15" column="96" selection-start-line="15" selection-start-column="96" selection-end-line="15" selection-end-column="96" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -697,7 +653,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-33.44" vertical-offset="396" max-vertical-offset="1364">
           <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -705,7 +660,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="10.56" vertical-offset="528" max-vertical-offset="2398">
           <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -713,7 +667,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-11.4" vertical-offset="1189" max-vertical-offset="2420">
           <caret line="67" column="16" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -721,7 +674,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-104.35185" vertical-offset="4727" max-vertical-offset="10494">
           <caret line="471" column="0" selection-start-line="471" selection-start-column="0" selection-end-line="471" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -729,7 +681,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-64.24" vertical-offset="0" max-vertical-offset="2002">
           <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -737,7 +688,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="10.92" vertical-offset="1087" max-vertical-offset="2156">
           <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -745,7 +695,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.92" vertical-offset="0" max-vertical-offset="550">
           <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -753,7 +702,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.68" vertical-offset="1056" max-vertical-offset="1628">
           <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -761,7 +709,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="30.84" vertical-offset="881" max-vertical-offset="1782">
           <caret line="5" column="29" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -769,7 +716,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="13.24" vertical-offset="331" max-vertical-offset="836">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -777,13 +723,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-42.24" vertical-offset="2640" max-vertical-offset="4026">
           <caret line="168" column="17" selection-start-line="168" selection-start-column="17" selection-end-line="168" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/attributes/repo.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.0740743" vertical-offset="440" max-vertical-offset="1276">
+        <state vertical-scroll-proportion="0.0" vertical-offset="440" max-vertical-offset="1276">
           <caret line="30" column="31" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
           <folding />
         </state>
@@ -791,8 +736,72 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../../chef/cookbooks/openstack-compute/templates/default/nova.conf.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="7.3411765" vertical-offset="12812" max-vertical-offset="13244">
+        <state vertical-scroll-proportion="0.0" vertical-offset="12812" max-vertical-offset="13244">
           <caret line="554" column="0" selection-start-line="554" selection-start-column="0" selection-end-line="554" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/recipes/mon.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1298" max-vertical-offset="4070">
+          <caret line="69" column="19" selection-start-line="69" selection-start-column="19" selection-end-line="69" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libraries/default.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="242" max-vertical-offset="7480">
+          <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/recipes/all_in_one.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="557">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/recipes/radosgw_apache2_repo.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="836">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/recipes/openstack_config_radosgw.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.08" vertical-offset="66" max-vertical-offset="2332">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ceph-openstack-connection/compute-config-ceph.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.32" vertical-offset="185" max-vertical-offset="2420">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ceph-openstack-connection/cinder-config-ceph.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.72" vertical-offset="238" max-vertical-offset="1760">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ceph-openstack-connection/glance-config-ceph.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.32" vertical-offset="0" max-vertical-offset="1122">
+          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -807,56 +816,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ceph-openstack-connection/swift-config-ceph.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="5.88" vertical-offset="719" max-vertical-offset="2332">
-          <caret line="26" column="3" selection-start-line="26" selection-start-column="3" selection-end-line="26" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/recipes/mon.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.8" vertical-offset="1298" max-vertical-offset="4070">
-          <caret line="69" column="19" selection-start-line="69" selection-start-column="19" selection-end-line="69" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libraries/default.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="24.851852" vertical-offset="1584" max-vertical-offset="7480">
-          <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ceph-openstack-connection/glance-config-ceph.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.28" vertical-offset="198" max-vertical-offset="1078">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ceph-openstack-connection/compute-config-ceph.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.32" vertical-offset="483" max-vertical-offset="2398">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ceph-openstack-connection/cinder-config-ceph.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.04" vertical-offset="426" max-vertical-offset="1738">
-          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/recipes/openstack_config_radosgw.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.04988662" vertical-offset="264" max-vertical-offset="2332">
-          <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.6334587" vertical-offset="191" max-vertical-offset="2332">
+          <caret line="24" column="17" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
           <folding />
         </state>
       </provider>

@@ -22,25 +22,26 @@
 # limitations under the License.
 #
 
-include_recipe 'ceph::_common'
-include_recipe 'ceph::mon_install'
-include_recipe 'ceph::conf'
-cluster = 'ceph'
-
-class ::Chef::Recipe # rubocop:disable Documentation
-  include ::Openstack
-end
-
-platform_options = node['openstack']['block-storage']['platform']
-
-platform_options['cinder_volume_packages'].each do |pkg|
-  package pkg do
-    options platform_options['package_overrides']
-    action :upgrade
-  end
-end
-
 if node.override['openstack']['block-storage']['volume']['driver'] == 'cinder.volume.drivers.rbd.RBDDriver'
+
+  include_recipe 'ceph::_common'
+  include_recipe 'ceph::mon_install'
+  include_recipe 'ceph::conf'
+  cluster = 'ceph'
+
+  class ::Chef::Recipe # rubocop:disable Documentation
+    include ::Openstack
+  end
+
+  platform_options = node['openstack']['block-storage']['platform']
+
+  platform_options['cinder_volume_packages'].each do |pkg|
+    package pkg do
+      options platform_options['package_overrides']
+      action :upgrade
+    end
+  end
+
   rbd_user = node['openstack']['block-storage']['rbd_user']
 
   if mon_nodes.empty?

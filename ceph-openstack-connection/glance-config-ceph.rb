@@ -2,16 +2,18 @@
 # this recipe should run after the openstack and ceph are working correctly!
 #
 
-include_recipe 'ceph::_common'
-include_recipe 'ceph::mon_install'
-include_recipe 'ceph::conf'
-platform_options = node['openstack']['image']['platform']
-cluster = 'ceph'
-
-class ::Chef::Recipe # rubocop:disable Documentation
-  include ::Openstack
-end
 if node['openstack']['image']['api']['default_store'] == 'rbd'
+
+  include_recipe 'ceph::_common'
+  include_recipe 'ceph::mon_install'
+  include_recipe 'ceph::conf'
+  platform_options = node['openstack']['image']['platform']
+  cluster = 'ceph'
+
+  class ::Chef::Recipe # rubocop:disable Documentation
+    include ::Openstack
+  end
+
   rbd_user = node['openstack']['image']['api']['rbd']['rbd_store_user']
 
   if mon_nodes.empty?

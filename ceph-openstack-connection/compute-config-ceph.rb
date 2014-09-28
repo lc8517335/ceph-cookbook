@@ -18,16 +18,17 @@
 # limitations under the License.
 #
 
-include_recipe 'ceph::_common'
-include_recipe 'ceph::mon_install'
-include_recipe 'ceph::conf'
-cluster = 'ceph'
-
-class ::Chef::Recipe # rubocop:disable Documentation
-  include ::Openstack
-end
-
 if node['openstack']['block-storage']['volume']['driver'] == 'cinder.volume.drivers.rbd.RBDDriver'
+
+  include_recipe 'ceph::_common'
+  include_recipe 'ceph::mon_install'
+  include_recipe 'ceph::conf'
+  cluster = 'ceph'
+
+  class ::Chef::Recipe # rubocop:disable Documentation
+    include ::Openstack
+  end
+
   platform_options = node['openstack']['compute']['platform']
 
   platform_options['libvirt_ceph_packages'].each do |pkg|
