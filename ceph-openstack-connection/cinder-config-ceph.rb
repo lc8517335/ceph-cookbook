@@ -22,16 +22,16 @@
 # limitations under the License.
 #
 
-if node.override['openstack']['block-storage']['volume']['driver'] == 'cinder.volume.drivers.rbd.RBDDriver'
+class ::Chef::Recipe # rubocop:disable Documentation
+  include ::Openstack
+end
+
+if node['openstack']['block-storage']['volume']['driver']  == 'cinder.volume.drivers.rbd.RBDDriver'
 
   include_recipe 'ceph::_common'
   include_recipe 'ceph::mon_install'
   include_recipe 'ceph::conf'
   cluster = 'ceph'
-
-  class ::Chef::Recipe # rubocop:disable Documentation
-    include ::Openstack
-  end
 
   platform_options = node['openstack']['block-storage']['platform']
 
