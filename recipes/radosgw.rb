@@ -85,6 +85,10 @@ else
   Log.info('Rados Gateway already deployed')
 end
 
+if node['ceph']['is_keystone_integration']
+  include_recipe 'ceph::openstack_config_radosgw'
+end
+
 service 'radosgw' do
   case node['ceph']['radosgw']['init_style']
     when 'upstart'
