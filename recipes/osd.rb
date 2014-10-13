@@ -76,6 +76,7 @@ ruby_block 'get the osd_device' do
           device_ssd_flag = Mixlib::ShellOut.new("cat /sys/block/#{device_name}/queue/rotational").run_command.stdout.strip
           device_partion_num = Mixlib::ShellOut.new("cat /proc/partitions | grep #{device_name} -c").run_command.stdout.strip
           if device_partion_num == "1" and device_ssd_flag == "1"
+            %x{sgdisk -g --clear /dev/#{device_name}}
             device_hash['device'] = "/dev/#{device_name}"
             unless ssd_disk.empty?
               ssd_index = (ssd_index >= ssd_disk.length ? 0 : ssd_index)
