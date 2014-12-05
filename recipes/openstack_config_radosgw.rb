@@ -16,7 +16,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-node.default['ceph']['is_keystone_integration'] = false
 
 if node['ceph']['is_keystone_integration']
   keystone_master = node_election('os-identity', 'keystone_keygen', node['ceph']['keystone environment'])

@@ -294,7 +294,6 @@ def mkpart(device)
       Chef::Log.error("Making partition was failed.")
     else
       device_return = device+p_num
-      %x{mkfs.xfs #{device_return}}
       device_return
     end
   end
@@ -303,6 +302,31 @@ end
 def create_disk_partion(device)
   mklabel(device)
   mkpart(device)
+end
+
+def get_osd_devices(device_name,ssd_disk,ssd_index)
+  device_hash = Hash.new
+  if device_name.include?"sd"
+    # whether the storage device is in use
+    device_ssd_flag = Mixlib::ShellOut.new("cat /sys/block/#{device_name}/queue/rotational").run_command.stdout.strip
+    device_partion_num = Mixlib::ShellOut.new("cat /proc/partitions | grep #{device_name} -c").run_command.stdout.strip
+    if device_partion_num == "1" and device_ssd_flag == "1"
+      %x{sgdisk -g --clear /dev/#{device_name}}
+      device_hash['device'] = "/dev/#{device_name}"
+      unless ssd_disk.empty?
+        ssd_index = (ssd_index >= ssd_disk.length ? 0 : ssd_index)
+        ssd_partion = nil
+        while ssd_partion.nil?
+          if ssd_index >= ssd_disk.length
+            break
+          end
+          ssd_partion = create_disk_partion(ssd_disk[ssd_index])
+        end
+      end
+      device_hash['journal'] = ssd_partion unless ssd_partion.nil?
+    end
+  end
+  device_hash
 end
 
 def selinux_disabled?

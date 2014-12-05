@@ -68,37 +68,21 @@ ruby_block 'get the osd_device' do
       ssd_disk = ssd_device
       ssd_index = 0
       # search normal osd device
-      node['block_device'].each do |device|
-        device_hash = Hash.new
-        device_name = device[0]
-        if device_name.include?"sd"
-          # whether the storage device is in use
-          device_ssd_flag = Mixlib::ShellOut.new("cat /sys/block/#{device_name}/queue/rotational").run_command.stdout.strip
-          device_partion_num = Mixlib::ShellOut.new("cat /proc/partitions | grep #{device_name} -c").run_command.stdout.strip
-          if device_partion_num == "1" and device_ssd_flag == "1"
-            %x{sgdisk -g --clear /dev/#{device_name}}
-            device_hash['device'] = "/dev/#{device_name}"
-            unless ssd_disk.empty?
-              ssd_index = (ssd_index >= ssd_disk.length ? 0 : ssd_index)
-              ssd_partion = nil
-              while ssd_partion.nil?
-                if ssd_index >= ssd_disk.length
-                  break
-                end
-                ssd_partion = create_disk_partion(ssd_disk[ssd_index])
-                ssd_index = ssd_index + 1
-              end
-              ssd_index = ssd_index + 1
-            end
-            device_hash['journal'] = ssd_partion unless ssd_partion.nil?
-          end
+      if node['ceph']['HDD_devices']
+        node['ceph']['HDD_devices'].each do |device|
+          device_hash = get_osd_devices(device,ssd_disk,ssd_index)
           osd_device << device_hash unless device_hash.empty?
-        else
-          next
+          ssd_index = ssd_index + 1
         end
-        node.normal['ceph']['osd_devices'] = osd_device
-        node.save
+      else
+        node['block_device'].each do |device|
+          device_hash = get_osd_devices(device[0],ssd_disk,ssd_index)
+          osd_device << device_hash unless device_hash.empty?
+          ssd_index = ssd_index + 1
+        end
       end
+      node.normal['ceph']['osd_devices'] = osd_device
+      node.save
     end
   end
 end
