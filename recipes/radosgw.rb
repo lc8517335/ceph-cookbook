@@ -18,6 +18,7 @@
 # limitations under the License.
 
 node.default['ceph']['is_radosgw'] = true
+node.default['ceph']['is_keystone_integration'] = false
 
 include_recipe 'ceph::_common'
 include_recipe 'ceph::radosgw_install'

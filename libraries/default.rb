@@ -224,38 +224,45 @@ end
 
 #partion start size of a given device
 def partition_start_size(device)
-  cmd = "parted #{device} --script -- p | awk '{print $3}' | tail -n 2"
+  cmd = "parted #{device} --script -- p free |grep 'Free Space'| awk '{print $3}'"
   rc = shell_out(cmd)
-  device_start_size = rc.stdout.split[0]
-  if device_start_size.include? "End"
-    device_start_size = 0
+  out = rc.stdout.gsub(/\n/,' ').split
+  start_size = 0
+  out.each do |partition|
+    partition_size = exchange_unit(partition)
+    if partition_size > journal_size
+      subcmd = "parted #{device} --script -- p free |grep 'Free Space'| grep #{partition} |awk '{print $1}'"
+      subrc = shell_out(subcmd)
+      start_partition = subrc.stdout.split[0]
+      start_size = exchange_unit(start_partition)
+      break
+    end
   end
-  if device_start_size == 0
-    device_start_size
-  elsif device_start_size.include?('KB')
-    device_start_size = eval(device_start_size.gsub(/[A-Z]/,''))/1000
-  elsif device_start_size.include?('GB')
-    device_start_size = eval(device_start_size.gsub(/[A-Z]/,''))*1000
-  elsif device_start_size.include?('MB')
-    device_start_size = eval(device_start_size.gsub(/[A-Z]/,''))
-  elsif device_start_size.include?('TB')
-    device_start_size = eval(device_start_size.gsub(/[A-Z]/,''))*1000000
+  if start_size == 0
+    Chef::Application.fatal!("SSD left space is not enough for journal.")
   end
-  device_start_size
+  start_size
 end
 
 def disk_total_size(device)
   cmd = "parted #{device} --script -- p | grep #{device} | cut -f 2 -d ':'"
   rc = shell_out(cmd)
   device_total_size = rc.stdout.split[0]
-  if device_total_size.include?('GB')
-    device_total_size = eval(device_total_size.gsub(/[A-Z]/,''))*1000
-  elsif device_total_size.include?('MB')
-    device_total_size = eval(device_total_size.gsub(/[A-Z]/,''))
-  elsif device_total_size.include?('TB')
-    device_total_size = eval(device_total_size.gsub(/[A-Z]/,''))*1000000
+  total_size = exchange_unit(device_total_size)
+end
+
+#exchange the GB KB TB to MB
+def exchange_unit(size)
+  if size.include?('kB')
+    exchange_size = eval(size.gsub(/[a-zA-Z]/,''))/1000
+  elsif size.include?('GB')
+    exchange_size = eval(size.gsub(/[A-Z]/,''))*1000
+  elsif size.include?('MB')
+    exchange_size = eval(size.gsub(/[A-Z]/,''))
+  elsif size.include?('TB')
+    exchange_size = eval(size.gsub(/[A-Z]/,''))*1000000
   end
-  device_total_size
+  exchange_size
 end
 
 def mklabel(device)
@@ -271,15 +278,8 @@ end
 
 def mkpart(device)
   device_total_size = disk_total_size(device)
-  device_start_size = partition_start_size(device) + 100
-  if node['ceph']['config']['osd']['osd journal size']
-    osd_journal_size = node['ceph']['config']['osd']['osd journal size'].to_i
-  elsif node['ceph']['config']['global']['osd journal size']
-    osd_journal_size = node['ceph']['config']['global']['osd journal size'].to_i
-  else
-    osd_journal_size = 5120
-  end
-  device_end_size = device_start_size + osd_journal_size
+  device_start_size = partition_start_size(device)+100
+  device_end_size = device_start_size + journal_size
   if device_start_size < device_total_size
     p_num_old = partition_num(device)
     if device_total_size > device_end_size
@@ -294,15 +294,50 @@ def mkpart(device)
       Chef::Log.error("Making partition was failed.")
     else
       device_return = device+p_num
-      %x{mkfs.xfs #{device_return}}
       device_return
     end
   end
 end
 
+def journal_size
+  osd_journal_size = 5120
+  if node['ceph']['config']['osd']['osd journal size']
+    osd_journal_size = node['ceph']['config']['osd']['osd journal size'].to_i
+  elsif node['ceph']['config']['global']['osd journal size']
+    osd_journal_size = node['ceph']['config']['global']['osd journal size'].to_i
+  end
+  osd_journal_size
+end
+
+
 def create_disk_partion(device)
   mklabel(device)
   mkpart(device)
+end
+
+def get_osd_devices(device_name,ssd_disk,ssd_index)
+  device_hash = Hash.new
+  if device_name.include?"sd"
+    # whether the storage device is in use
+    device_ssd_flag = Mixlib::ShellOut.new("cat /sys/block/#{device_name}/queue/rotational").run_command.stdout.strip
+    device_partion_num = Mixlib::ShellOut.new("cat /proc/partitions | grep #{device_name} -c").run_command.stdout.strip
+    if device_partion_num == "1" and device_ssd_flag == "1"
+      %x{sgdisk -g --clear /dev/#{device_name}}
+      device_hash['device'] = "/dev/#{device_name}"
+      unless ssd_disk.empty?
+        ssd_index = (ssd_index >= ssd_disk.length ? 0 : ssd_index)
+        ssd_partion = nil
+        while ssd_partion.nil?
+          if ssd_index >= ssd_disk.length
+            break
+          end
+          ssd_partion = create_disk_partion(ssd_disk[ssd_index])
+        end
+      end
+      device_hash['journal'] = ssd_partion unless ssd_partion.nil?
+    end
+  end
+  device_hash
 end
 
 def selinux_disabled?
