@@ -76,8 +76,8 @@
       <file leaf-file-name="osd.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/recipes/osd.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.21194606" vertical-offset="1386" max-vertical-offset="4092">
-              <caret line="68" column="22" selection-start-line="68" selection-start-column="22" selection-end-line="68" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.63583815" vertical-offset="1166" max-vertical-offset="4070">
+              <caret line="68" column="27" selection-start-line="68" selection-start-column="27" selection-end-line="68" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -787,8 +787,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/recipes/osd.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21194606" vertical-offset="1386" max-vertical-offset="4092">
-          <caret line="68" column="22" selection-start-line="68" selection-start-column="22" selection-end-line="68" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.63583815" vertical-offset="1166" max-vertical-offset="4070">
+          <caret line="68" column="27" selection-start-line="68" selection-start-column="27" selection-end-line="68" selection-end-column="27" />
           <folding />
         </state>
       </provider>

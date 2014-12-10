@@ -82,9 +82,8 @@ ruby_block 'get the osd_device' do
           ssd_index = ssd_index + 1
         end
       end
-      print osd_device
-      #node.normal['ceph']['osd_devices'] = osd_device
-      #node.save
+      node.normal['ceph']['osd_devices'] = osd_device
+      node.save
     end
   end
 end
