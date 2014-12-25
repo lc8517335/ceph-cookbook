@@ -65,7 +65,6 @@ ruby_block 'get the osd_device' do
   block do
     if node['ceph']['osd_devices'].nil?
       osd_device = []
-      #ssd_disk = ssd_device
       ssd_disk = ssd_device
       ssd_index = 0
       # search normal osd device

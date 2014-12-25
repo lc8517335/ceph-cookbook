@@ -283,9 +283,9 @@ def mkpart(device)
   if device_start_size < device_total_size
     p_num_old = partition_num(device)
     if device_total_size > device_end_size
-      output = %x{parted #{device} --script -- mkpart osd_journal #{device_start_size.to_s} #{device_end_size.to_s}}
+      output = %x{parted #{device} --script -- mkpart logical #{device_start_size.to_s} #{device_end_size.to_s}}
     else
-      output = %x{parted #{device} --script -- mkpart osd_journal #{device_start_size.to_s} 100%}
+      output = %x{parted #{device} --script -- mkpart logical #{device_start_size.to_s} 100%}
     end
     output = %x{partx -a #{device} > /dev/null 2>&1}
     p_num_new = partition_num(device)
